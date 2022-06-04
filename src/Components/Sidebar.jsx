@@ -33,6 +33,7 @@ export default function PermanentDrawerRight() {
         anchor="left"
       >
         <Toolbar />
+        <Toolbar />
         <ListItem key={"home"} disablePadding>
           <ListItemButton>
             <ListItemIcon>
