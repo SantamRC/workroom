@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -16,84 +16,102 @@ import Typography from "@mui/material/Typography";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
-}
-
-const Demo = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-}));
-
 function Table() {
-  const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(false);
+  const [items, setItems] = useState([]);
 
   return (
-    <Box sx={{width: '85vw',marginTop: '5vh'}}>
+    <Box
+      sx={{
+        width: "85vw",
+        marginTop: "5vh",
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       <Grid container spacing={2}>
-        <Grid item xs={2} style={{ backgroundColor: "green", height: "70vh" }}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            Icon with text
+        <Grid
+          item
+          xs={2}
+          style={{
+            height: "90vh",
+            border: "2px solid gray",
+          }}
+        >
+          <Typography sx={{ mb: 2 }} variant="h6" component="div">
+            Fields
           </Typography>
-          <Demo>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemIcon>
-                    <FolderIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
-                </ListItem>
-              )}
-            </List>
-          </Demo>
+          <List>
+            <ListItem sx={{ width: "100%", bgcolor: "gray" }}>
+              <ListItemText primary="Basic Fields" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary="Text" />
+            </ListItem>
+            <ListItem sx={{ width: "100%", bgcolor: "gray" }}>
+              <ListItemText primary="Selection Fields" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary="Checklist" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary="Select Date and Time" />
+            </ListItem>
+            <ListItem sx={{ width: "100%", bgcolor: "gray" }}>
+              <ListItemText primary="Attachment Fields" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary="Upload Image" />
+            </ListItem>
+            <ListItem sx={{ width: "100%", bgcolor: "gray" }}>
+              <ListItemText primary="Layout" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary="Section" />
+            </ListItem>
+          </List>
         </Grid>
-        <Grid item xs={8} style={{ backgroundColor: "pink", height: "70vh" }}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            Icon with text
+        <Grid item xs={8} style={{ border: "2px solid gray", height: "90vh" }}>
+          <Typography sx={{ mb: 2 }} variant="h6" component="div">
+            Canvas
           </Typography>
-          <Demo>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemIcon>
-                    <FolderIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
-                </ListItem>
-              )}
-            </List>
-          </Demo>
+
+          <List>
+            <ListItem>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary="Single-line item" />
+            </ListItem>
+          </List>
         </Grid>
-        <Grid item xs={2} style={{ backgroundColor: "blue", height: "70vh" }}>
-          <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-            Icon with text
+        <Grid item xs={2} style={{ border: "2px solid gray", height: "90vh" }}>
+          <Typography sx={{ mb: 2 }} variant="h6" component="div">
+            Controls
           </Typography>
-          <Demo>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemIcon>
-                    <FolderIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
-                </ListItem>
-              )}
-            </List>
-          </Demo>
+
+          <List>
+            <ListItem>
+              <ListItemIcon>
+                <FolderIcon />
+              </ListItemIcon>
+              <ListItemText primary="Single-line item" />
+            </ListItem>
+          </List>
         </Grid>
       </Grid>
     </Box>

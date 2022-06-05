@@ -11,11 +11,9 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Sidebar />
+      {/* <Sidebar /> */}
       {/* <AuthorNewSheetButton /> */}
-      <div style={{marginLeft: 150}}>
-        <Table />
-      </div>
+      <Table />
     </div>
   );
 }
