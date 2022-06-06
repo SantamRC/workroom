@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -14,7 +14,8 @@ import AuthorNewSheetButton from "../Components/AuthorNewSheetButton";
 import Sidebar from "../Components/Sidebar";
 
 function First() {
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = useState("");
+  const [name, setName] = useState("");
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -83,7 +84,7 @@ function First() {
           </Grid>
         </Grid>
         <Grid item xs={6} style={{ alignSelf: "left" }}>
-          <AuthorNewSheetButton />
+          <AuthorNewSheetButton setName={setName} />
         </Grid>
       </Grid>
     </div>

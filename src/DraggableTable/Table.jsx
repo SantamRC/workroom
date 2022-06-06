@@ -13,8 +13,12 @@ import Radio from "@mui/material/Radio";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import TextFieldsIcon from "@mui/icons-material/TextFields";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -160,7 +164,7 @@ function Table() {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <MoreHorizIcon />
+                <TextFieldsIcon />
               </ListItemIcon>
               <ListItemText primary="Text" />
             </ListItem>
@@ -173,7 +177,7 @@ function Table() {
                 onClick={() => addChecklist()}
               >
                 <ListItemIcon>
-                  <MoreHorizIcon />
+                  <CheckCircleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Checklist" />
               </ListItem>
@@ -181,7 +185,7 @@ function Table() {
             <Draggable position={{ x: 0, y: 0 }}>
               <ListItem style={{ cursor: "pointer" }} onClick={() => addDate()}>
                 <ListItemIcon>
-                  <MoreHorizIcon />
+                  <CalendarMonthIcon />
                 </ListItemIcon>
                 <ListItemText primary="Select Date and Time" />
               </ListItem>
@@ -192,7 +196,7 @@ function Table() {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <MoreHorizIcon />
+                <AddPhotoAlternateIcon />
               </ListItemIcon>
               <ListItemText primary="Upload Image" />
             </ListItem>
@@ -205,7 +209,7 @@ function Table() {
                 onClick={() => addSection()}
               >
                 <ListItemIcon>
-                  <MoreHorizIcon />
+                  <TableRowsIcon />
                 </ListItemIcon>
                 <ListItemText primary="Section" />
               </ListItem>

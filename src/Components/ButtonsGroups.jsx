@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Grid from "@mui/material/Grid";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ArticleIcon from "@mui/icons-material/Article";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function ButtonsGroups() {
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location);
+  });
+
   return (
     <div>
       <Grid container>
@@ -20,7 +27,7 @@ function ButtonsGroups() {
           </Button>
           <Button style={{ marginLeft: "20px" }} variant="outlined">
             <ArticleIcon />
-            First Piece CTQ: Tube Press Up
+            {location.state.name}
           </Button>
         </Grid>
         <Grid item xs={4}></Grid>

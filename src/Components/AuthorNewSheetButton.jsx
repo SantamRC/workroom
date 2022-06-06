@@ -11,13 +11,23 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import HighlightAltIcon from "@mui/icons-material/HighlightAlt";
+import GridViewIcon from "@mui/icons-material/GridView";
+import ArticleIcon from "@mui/icons-material/Article";
 
-export default function FormDialog() {
+export default function AuthorNewSheetButton() {
   const [open, setOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [age, setAge] = useState("");
+  const [name, setName] = useState("");
+
+  const navigate = useNavigate();
+
+  const changeRoute = () => {
+    navigate("/table", { state: { name: name } });
+  };
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -28,6 +38,7 @@ export default function FormDialog() {
   };
 
   const handleClose = () => {
+    changeRoute();
     setOpen(false);
     setShowDetails(false);
   };
@@ -41,8 +52,16 @@ export default function FormDialog() {
       <Dialog open={open} onClose={handleClose} fullWidth>
         {showDetails ? (
           <>
-            <DialogTitle style={{ marginLeft: "auto", marginRight: "auto" }}>
-              New Sheet Details
+            <DialogTitle
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                backgroundColor: "#95c8f5",
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              <ArticleIcon /> New Sheet Details
             </DialogTitle>
             <DialogContent style={{ textAlign: "center" }}>
               <TextField
@@ -50,6 +69,7 @@ export default function FormDialog() {
                 label="Sheet Name"
                 id="fullWidth"
                 style={{ margin: "5px" }}
+                onChange={(event) => setName(event.target.value)}
               />
               <TextField
                 fullWidth
@@ -91,8 +111,6 @@ export default function FormDialog() {
                 variant="contained"
                 style={{ marginTop: "5px" }}
                 onClick={handleClose}
-                component={Link}
-                to="/table"
               >
                 Start Authoring
               </Button>
@@ -111,6 +129,16 @@ export default function FormDialog() {
                   style={{ textAlign: "center", cursor: "pointer" }}
                   onClick={() => setShowDetails(true)}
                 >
+                  <HighlightAltIcon
+                    style={{
+                      border: "1px solid #b0b0b0",
+                      borderRadius: "10px",
+                      padding: "5px",
+                      fontSize: "80px",
+                      backgroundColor: "#1f85de",
+                      color: "white",
+                    }}
+                  />
                   <h3>Author from Scratch</h3>
                   <h4>
                     Build a sheet by dragging & dropping using the authoring
@@ -122,7 +150,16 @@ export default function FormDialog() {
                   xs={6}
                   style={{ textAlign: "center", cursor: "pointer" }}
                 >
-                  {" "}
+                  <GridViewIcon
+                    style={{
+                      border: "1px solid #b0b0b0",
+                      borderRadius: "10px",
+                      padding: "5px",
+                      fontSize: "80px",
+                      backgroundColor: "#1f85de",
+                      color: "white",
+                    }}
+                  />
                   <h3>Choose from Template</h3>
                   <h4>
                     Choose an already built sheet from our extensive sheets
