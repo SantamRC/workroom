@@ -20,6 +20,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
+import DatePicker from "react-date-picker";
 import Button from "@mui/material/Button";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import Draggable from "react-draggable";
@@ -33,6 +34,7 @@ function Table() {
   const [selectedCard, setSelectedCard] = useState({});
   const [showInput, setShowInput] = useState({});
   const [fieldValue, setFieldValue] = useState("");
+  const [dateValue, setDateValue] = useState(new Date());
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const open = Boolean(anchorEl);
@@ -88,15 +90,15 @@ function Table() {
     });
     if (field === "delete") {
       let newItems = items.filter((option, indd) => {
-        return indd != ind;
+        return indd != ind-1;
       });
       setItems(newItems);
-    }else{
+      setAnchorEl(null);
+    } else {
       setItems(newItems);
       console.log(newItems);
       setShowInput({});
     }
-    
   };
 
   const addChecklist = () => {
@@ -285,12 +287,18 @@ function Table() {
                       Section {item.id}
                     </h4>
                     {showInput.index == index && showInput.field == "title" ? (
-                      <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-around",
+                        }}
+                      >
                         <TextField
                           id="outlined-basic"
                           label="Title"
                           variant="outlined"
                           onChange={(e) => setFieldValue(e.target.value)}
+                          style={{ width: "70%" }}
                         />
                         <Button
                           variant="contained"
@@ -318,12 +326,19 @@ function Table() {
                     )}
                     {showInput.index == index &&
                     showInput.field == "description" ? (
-                      <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-around",
+                          paddingBottom: "10px",
+                        }}
+                      >
                         <TextField
                           id="outlined-basic"
                           label="Title"
                           variant="outlined"
                           onChange={(e) => setFieldValue(e.target.value)}
+                          style={{ width: "70%" }}
                         />
                         <Button
                           variant="contained"
@@ -365,7 +380,37 @@ function Table() {
                     item
                     xs={item.width}
                   >
-                    <p style={{ margin: 0 }}>{item.title}</p>
+                    <div style={{ display: "flex" }}>
+                      <h4 style={{ margin: 0 }}>{item.title}</h4>
+                      <MoreHorizIcon
+                        style={{
+                          marginLeft: "auto",
+                          display: "block",
+                          marginRight: "10px",
+                          cursor: "pointer",
+                        }}
+                        onClick={(event) => setAnchorEl(event.currentTarget)}
+                      />
+                      <Popover
+                        id={id}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={() => setAnchorEl(null)}
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          style={{ backgroundColor: "red" }}
+                          onClick={() => updateField(index, "delete")}
+                        >
+                          Delete
+                        </Button>
+                      </Popover>
+                    </div>
+
                     <div
                       style={{
                         backgroundColor: "#dedede",
@@ -423,6 +468,7 @@ function Table() {
                   </Grid>
                 );
               }
+
               if (item.type == "Date") {
                 return (
                   <Grid
@@ -430,9 +476,53 @@ function Table() {
                     onClick={() => clickCard(index)}
                     item
                     xs={item.width}
-                    style={{ backgroundColor: "#dedede" }}
                   >
-                    <h2>This is a Date</h2>
+                    <div style={{ display: "flex", alignItems: 'center' }}>
+                      <h4>Select Product Expiry Date</h4>
+                      <MoreHorizIcon
+                        style={{
+                          marginLeft: "auto",
+                          display: "block",
+                          marginRight: "10px",
+                          cursor: "pointer",
+                        }}
+                        onClick={(event) => setAnchorEl(event.currentTarget)}
+                      />
+                      <Popover
+                        id={id}
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={() => setAnchorEl(null)}
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          style={{ backgroundColor: "red" }}
+                          onClick={() => updateField(index, "delete")}
+                        >
+                          Delete
+                        </Button>
+                      </Popover>
+                    </div>
+
+                    <div
+                      style={{
+                        backgroundColor: "#dedede",
+                        paddingTop: "10px",
+                        paddingBottom: "10px",
+                        borderRadius: "10px",
+                        margin: "10px",
+                      }}
+                    >
+                      <DatePicker
+                        onChange={setDateValue}
+                        value={dateValue}
+                        style={{ top: "10px" }}
+                      />
+                    </div>
                   </Grid>
                 );
               }
