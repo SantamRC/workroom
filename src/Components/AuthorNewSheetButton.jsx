@@ -12,6 +12,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Link } from "react-router-dom";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
@@ -34,6 +35,7 @@ export default function FormDialog() {
   return (
     <div>
       <Button variant="contained" onClick={handleClickOpen}>
+        <AddCircleIcon style={{ marginRight: "5px" }} />
         Author New Sheet
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth>

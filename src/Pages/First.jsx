@@ -8,6 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Button from "@mui/material/Button";
+import SearchIcon from "@mui/icons-material/Search";
+import EditOffIcon from "@mui/icons-material/EditOff";
 import AuthorNewSheetButton from "../Components/AuthorNewSheetButton";
 import Sidebar from "../Components/Sidebar";
 
@@ -27,12 +29,13 @@ function First() {
             variant="outlined"
             style={{ marginTop: "15px", marginLeft: "40px" }}
           >
+            <EditOffIcon />
             Sheets
           </Button>
         </Grid>
         <Grid item xs={8} style={{ marginBottom: "15px" }}>
           <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+            <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
             <TextField
               id="input-with-sx"
               label="Search"

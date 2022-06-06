@@ -37,7 +37,14 @@ export default function PermanentDrawerRight() {
         <ListItem key={"home"} disablePadding>
           <ListItemButton>
             <ListItemIcon>
-              <HomeIcon />
+              <HomeIcon
+                style={{
+                  border: "1px solid #b0b0b0",
+                  borderRadius: "10px",
+                  padding: "5px",
+                  fontSize: "50px",
+                }}
+              />
             </ListItemIcon>
           </ListItemButton>
         </ListItem>
@@ -46,21 +53,44 @@ export default function PermanentDrawerRight() {
           <ListItem key={"reload"} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <RotateLeftIcon />
+                <RotateLeftIcon
+                  style={{
+                    border: "1px solid #b0b0b0",
+                    borderRadius: "10px",
+                    padding: "5px",
+                    fontSize: "50px",
+                  }}
+                />
               </ListItemIcon>
             </ListItemButton>
           </ListItem>
           <ListItem key={"check"} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <CheckBoxIcon />
+                <CheckBoxIcon
+                  style={{
+                    border: "1px solid #b0b0b0",
+                    borderRadius: "10px",
+                    padding: "5px",
+                    fontSize: "50px",
+                  }}
+                />
               </ListItemIcon>
             </ListItemButton>
           </ListItem>
-          <ListItem key={"build"} disablePadding>
+          <ListItem key={"build"} disablePadding style={{borderRight: "5px solid #1f85de"}}>
             <ListItemButton>
               <ListItemIcon>
-                <BorderColorIcon />
+                <BorderColorIcon
+                  style={{
+                    border: "1px solid #b0b0b0",
+                    borderRadius: "10px",
+                    padding: "5px",
+                    fontSize: "50px",
+                    backgroundColor: "#1f85de",
+                    color: 'white'
+                  }}
+                />
               </ListItemIcon>
             </ListItemButton>
           </ListItem>
