@@ -19,8 +19,10 @@ import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import Draggable from "react-draggable";
 
 function Table() {
+  const [isDragging, setIsDragging] = useState(false);
   const [items, setItems] = useState([]);
   const [sectionNumber, setSectionNumber] = useState(0);
   const [selected, setSelected] = useState(false);
@@ -165,21 +167,26 @@ function Table() {
             <ListItem sx={{ width: "100%", bgcolor: "#ababab" }}>
               <ListItemText primary="Selection Fields" />
             </ListItem>
-            <ListItem
-              style={{ cursor: "pointer" }}
-              onClick={() => addChecklist()}
-            >
-              <ListItemIcon>
-                <MoreHorizIcon />
-              </ListItemIcon>
-              <ListItemText primary="Checklist" />
-            </ListItem>
-            <ListItem style={{ cursor: "pointer" }} onClick={() => addDate()}>
-              <ListItemIcon>
-                <MoreHorizIcon />
-              </ListItemIcon>
-              <ListItemText primary="Select Date and Time" />
-            </ListItem>
+            <Draggable position={{ x: 0, y: 0 }}>
+              <ListItem
+                style={{ cursor: "pointer" }}
+                onClick={() => addChecklist()}
+              >
+                <ListItemIcon>
+                  <MoreHorizIcon />
+                </ListItemIcon>
+                <ListItemText primary="Checklist" />
+              </ListItem>
+            </Draggable>
+            <Draggable position={{ x: 0, y: 0 }}>
+              <ListItem style={{ cursor: "pointer" }} onClick={() => addDate()}>
+                <ListItemIcon>
+                  <MoreHorizIcon />
+                </ListItemIcon>
+                <ListItemText primary="Select Date and Time" />
+              </ListItem>
+            </Draggable>
+
             <ListItem sx={{ width: "100%", bgcolor: "#ababab" }}>
               <ListItemText primary="Attachment Fields" />
             </ListItem>
@@ -192,15 +199,17 @@ function Table() {
             <ListItem sx={{ width: "100%", bgcolor: "#ababab" }}>
               <ListItemText primary="Layout" />
             </ListItem>
-            <ListItem
-              style={{ cursor: "pointer" }}
-              onClick={() => addSection()}
-            >
-              <ListItemIcon>
-                <MoreHorizIcon />
-              </ListItemIcon>
-              <ListItemText primary="Section" />
-            </ListItem>
+            <Draggable position={{ x: 0, y: 0 }}>
+              <ListItem
+                style={{ cursor: "pointer" }}
+                onClick={() => addSection()}
+              >
+                <ListItemIcon>
+                  <MoreHorizIcon />
+                </ListItemIcon>
+                <ListItemText primary="Section" />
+              </ListItem>
+            </Draggable>
           </List>
         </Grid>
 
@@ -212,6 +221,7 @@ function Table() {
             height: "auto",
             minHeight: "70vh",
           }}
+          onMouseOver={() => console.log("Mouse is Over")}
         >
           <Typography sx={{ mb: 2 }} variant="h6" component="div">
             Canvas
