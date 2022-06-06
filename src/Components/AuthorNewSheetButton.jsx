@@ -11,6 +11,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Link } from "react-router-dom";
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
@@ -88,6 +89,8 @@ export default function FormDialog() {
                 variant="contained"
                 style={{ marginTop: "5px" }}
                 onClick={handleClose}
+                component={Link}
+                to="/table"
               >
                 Start Authoring
               </Button>

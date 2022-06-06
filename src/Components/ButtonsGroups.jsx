@@ -4,13 +4,14 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Grid from "@mui/material/Grid";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ArticleIcon from "@mui/icons-material/Article";
+import { Link } from "react-router-dom";
 
 function ButtonsGroups() {
   return (
     <div>
       <Grid container>
         <Grid item xs={4}>
-          <Button variant="outlined">
+          <Button variant="outlined" component={Link} to="/">
             <ChevronLeftIcon />
           </Button>
           <Button style={{ marginLeft: "10px" }} variant="outlined">
