@@ -22,13 +22,23 @@ function First() {
     <div style={{ marginLeft: "100px", marginTop: "10px" }}>
       <Sidebar />
       <Grid container>
-        <Grid item xs={6} style={{AlignItems: 'left'}} >
-          <Button variant="outlined">Sheets</Button>
+        <Grid item xs={4} style={{ textAlign: "left" }}>
+          <Button
+            variant="outlined"
+            style={{ marginTop: "15px", marginLeft: "40px" }}
+          >
+            Sheets
+          </Button>
         </Grid>
-        <Grid item xs={6} style={{ alignSelf: "left" }}>
+        <Grid item xs={8} style={{ marginBottom: "15px" }}>
           <Box sx={{ display: "flex", alignItems: "flex-end" }}>
             <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-            <TextField id="input-with-sx" label="With sx" variant="standard" />
+            <TextField
+              id="input-with-sx"
+              label="Search"
+              variant="standard"
+              style={{ width: "50%" }}
+            />
           </Box>
         </Grid>
         <Grid item xs={6}>
