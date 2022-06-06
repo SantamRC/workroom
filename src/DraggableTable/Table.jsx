@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -15,9 +14,11 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import TextFieldsIcon from "@mui/icons-material/TextFields";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 function Table() {
   const [items, setItems] = useState([]);
@@ -26,6 +27,9 @@ function Table() {
   const [showAction, setShowAction] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [showInput, setShowInput] = useState({});
+  const [fieldValue, setFieldValue] = useState("");
+
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   const handleChange = () => {
     setSelected(!selected);
@@ -34,12 +38,50 @@ function Table() {
   const clickCard = (id) => {
     setShowAction(true);
     let card = items[id];
-    console.log(card);
+    //console.log(card);
     setSelectedCard(card);
   };
 
   const clickField = (index, field) => {
     setShowInput({ index: index, field: field });
+  };
+
+  const updateField = (ind, field) => {
+    console.log(ind + " " + field + " " + fieldValue);
+    const newItems = items.map((item, index) => {
+      if (index == ind) {
+        if (field == "title") return { ...item, title: fieldValue };
+        if (field == "description") return { ...item, description: fieldValue };
+        if (field == "checklist" && fieldValue == "") {
+          item.options.push({ title: " ", checked: false });
+          return { ...item };
+        }
+        if (field == "checklist" && fieldValue != "") {
+          item.options.push(fieldValue);
+          return { ...item };
+        }
+        if (field == "checklist-delete") {
+          console.log("The Option value is: " + fieldValue);
+          let newOptions = item.options.filter(
+            (option, ind) => ind != fieldValue
+          );
+          return { ...item, options: newOptions };
+        }
+        if (field == "checklist-check") {
+          console.log("The Option value is: " + fieldValue);
+          let newOptions = item.options.map((option, indd) => {
+            if (indd == fieldValue)
+              return { ...option, checked: !option.checked };
+            return { ...option };
+          });
+          return { ...item, options: newOptions };
+        }
+      }
+      return item;
+    });
+    setItems(newItems);
+    console.log(newItems);
+    setShowInput({});
   };
 
   const addChecklist = () => {
@@ -57,7 +99,7 @@ function Table() {
   };
 
   const addSection = () => {
-    console.log("Section is clicked");
+    //console.log("Section is clicked");
     setSectionNumber(sectionNumber + 1);
     setItems((prevItems) => [
       ...prevItems,
@@ -91,7 +133,7 @@ function Table() {
     <Box
       sx={{
         width: "85vw",
-        marginTop: "5vh",
+        marginTop: "15px",
         marginLeft: "auto",
         marginRight: "auto",
       }}
@@ -175,6 +217,9 @@ function Table() {
             Canvas
           </Typography>
           <Divider />
+
+          {/* Section Code */}
+
           <Grid container>
             {items.map((item, index) => {
               if (item.type == "Section") {
@@ -184,21 +229,29 @@ function Table() {
                     onClick={() => clickCard(index)}
                     item
                     xs={item.width}
-                    style={{ backgroundColor: "#ababab", margin: "5px" }}
+                    style={{ backgroundColor: "#dedede", margin: "5px" }}
                   >
+                    <MoreHorizIcon
+                      style={{
+                        marginLeft: "auto",
+                        display: "block",
+                        marginRight: "10px",
+                      }}
+                    />
                     <h4 style={{ textAlign: "left", marginLeft: "15px" }}>
                       Section {item.id}
                     </h4>
-                    {showInput.index == index && showInput.field=="title" ? (
+                    {showInput.index == index && showInput.field == "title" ? (
                       <div>
                         <TextField
                           id="outlined-basic"
                           label="Title"
                           variant="outlined"
+                          onChange={(e) => setFieldValue(e.target.value)}
                         />
                         <Button
                           variant="contained"
-                          onClick={() => setShowInput({})}
+                          onClick={() => updateField(index, "title")}
                         >
                           Save
                         </Button>
@@ -214,22 +267,24 @@ function Table() {
                         }}
                         onClick={() => {
                           clickField(index, "title");
-                          console.log("Title is clicked");
+                          //console.log("Title is clicked");
                         }}
                       >
                         {item.title}
                       </h2>
                     )}
-                    {showInput.index == index && showInput.field=="description" ? (
+                    {showInput.index == index &&
+                    showInput.field == "description" ? (
                       <div>
                         <TextField
                           id="outlined-basic"
                           label="Title"
                           variant="outlined"
+                          onChange={(e) => setFieldValue(e.target.value)}
                         />
                         <Button
                           variant="contained"
-                          onClick={() => setShowInput({})}
+                          onClick={() => updateField(index, "description")}
                         >
                           Save
                         </Button>
@@ -254,6 +309,11 @@ function Table() {
                   </Grid>
                 );
               }
+
+              {
+                /* Checklist Code */
+              }
+
               if (item.type == "Checklist") {
                 return (
                   <Grid
@@ -261,9 +321,62 @@ function Table() {
                     onClick={() => clickCard(index)}
                     item
                     xs={item.width}
-                    style={{ backgroundColor: "#ababab" }}
                   >
-                    <h2>This is a Checklist</h2>
+                    <p style={{ margin: 0 }}>{item.title}</p>
+                    <div
+                      style={{
+                        backgroundColor: "#dedede",
+                        margin: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      {item.options.map((option, indexOption) => {
+                        return (
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-around",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Checkbox
+                              {...label}
+                              checked={option.checked}
+                              onChange={() => {
+                                setFieldValue(indexOption);
+                                updateField(index, "checklist-check");
+                              }}
+                            />
+                            <TextField
+                              id="outlined-basic"
+                              label="Checklist Item"
+                              variant="outlined"
+                              value={option.title != " " && option.title}
+                              style={{ margin: "5px" }}
+                            />
+                            <RemoveCircleOutlineIcon
+                              onClick={() => {
+                                setFieldValue(indexOption);
+                                updateField(index, "checklist-delete");
+                              }}
+                            />
+                          </div>
+                        );
+                      })}
+                      <Button
+                        onClick={() => {
+                          setFieldValue("");
+                          updateField(index, "checklist");
+                        }}
+                        style={{ margin: "5px" }}
+                        variant="outlined"
+                        startIcon={<AddCircleIcon />}
+                      >
+                        Add
+                      </Button>
+                    </div>
                   </Grid>
                 );
               }
@@ -274,18 +387,9 @@ function Table() {
                     onClick={() => clickCard(index)}
                     item
                     xs={item.width}
-                    style={{ minheight: "100px", height: "auto" }}
+                    style={{ backgroundColor: "#dedede" }}
                   >
-                    <Paper
-                      elevation={3}
-                      style={{
-                        backgroundColor: "#ababab",
-                        height: "auto",
-                        minHeight: "60px",
-                      }}
-                    >
-                      <h2>This is a Date</h2>
-                    </Paper>
+                    <h2>This is a Date</h2>
                   </Grid>
                 );
               }
