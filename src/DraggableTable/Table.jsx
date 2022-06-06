@@ -8,14 +8,13 @@ import Grid from "@mui/material/Grid";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import Paper from "@mui/material/Paper";
-import Radio from "@mui/material/Radio";
 import Divider from "@mui/material/Divider";
+import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import TableRowsIcon from '@mui/icons-material/TableRows';
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import TableRowsIcon from "@mui/icons-material/TableRows";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import TextFieldsIcon from "@mui/icons-material/TextFields";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -26,7 +25,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import Draggable from "react-draggable";
 
 function Table() {
-  const [isDragging, setIsDragging] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [items, setItems] = useState([]);
   const [sectionNumber, setSectionNumber] = useState(0);
   const [selected, setSelected] = useState(false);
@@ -36,6 +35,8 @@ function Table() {
   const [fieldValue, setFieldValue] = useState("");
 
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const handleChange = () => {
     setSelected(!selected);
@@ -85,9 +86,17 @@ function Table() {
       }
       return item;
     });
-    setItems(newItems);
-    console.log(newItems);
-    setShowInput({});
+    if (field === "delete") {
+      let newItems = items.filter((option, indd) => {
+        return indd != ind;
+      });
+      setItems(newItems);
+    }else{
+      setItems(newItems);
+      console.log(newItems);
+      setShowInput({});
+    }
+    
   };
 
   const addChecklist = () => {
@@ -236,7 +245,7 @@ function Table() {
 
           <Grid container>
             {items.map((item, index) => {
-              if (item.type == "Section") {
+              if (item.type === "Section") {
                 return (
                   <Grid
                     key={index}
@@ -250,8 +259,28 @@ function Table() {
                         marginLeft: "auto",
                         display: "block",
                         marginRight: "10px",
+                        cursor: "pointer",
                       }}
+                      onClick={(event) => setAnchorEl(event.currentTarget)}
                     />
+                    <Popover
+                      id={id}
+                      open={open}
+                      anchorEl={anchorEl}
+                      onClose={() => setAnchorEl(null)}
+                      anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                      }}
+                    >
+                      <Button
+                        variant="contained"
+                        style={{ backgroundColor: "red" }}
+                        onClick={() => updateField(index, "delete")}
+                      >
+                        Delete
+                      </Button>
+                    </Popover>
                     <h4 style={{ textAlign: "left", marginLeft: "15px" }}>
                       Section {item.id}
                     </h4>
